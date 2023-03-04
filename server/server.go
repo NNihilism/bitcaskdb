@@ -11,7 +11,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/NNihilism/bitcaskdb/bitcask"
+	"github.com/NNihilism/bitcaskdb"
 	"github.com/NNihilism/bitcaskdb/log"
 	"github.com/NNihilism/bitcaskdb/options"
 )
@@ -28,7 +28,7 @@ type ServerOptions struct {
 }
 
 type Server struct {
-	dbs        []*bitcask.BitcaskDB //
+	dbs        []*bitcaskdb.BitcaskDB //
 	serverOpts *ServerOptions
 }
 
@@ -61,13 +61,13 @@ func DefaultServer() *Server {
 	return defaultServer
 }
 
-func openAllDB(opt *ServerOptions) (dbs []*bitcask.BitcaskDB) {
+func openAllDB(opt *ServerOptions) (dbs []*bitcaskdb.BitcaskDB) {
 	// open databases and choose the first db as default db
 	now := time.Now()
 	for i := uint(0); i < opt.databases; i++ {
 		path := filepath.Join(opt.dbPath, fmt.Sprintf(dbName, i))
 		opts := options.DefaultOptions(path)
-		db, err := bitcask.Open(opts)
+		db, err := bitcaskdb.Open(opts)
 		if err != nil {
 			log.Errorf("open db err, fail to start server. %v", err)
 			return

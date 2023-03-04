@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/NNihilism/bitcaskdb/bitcask"
+	"github.com/NNihilism/bitcaskdb"
 	"github.com/NNihilism/bitcaskdb/util"
 )
 
@@ -289,7 +289,7 @@ func lPushX(cli *ClientHandle, args [][]byte) (interface{}, error) {
 	if len(args) < 2 {
 		return nil, newWrongNumOfArgsError("lpush")
 	}
-	if err := cli.db.LPushX(args[0], args[1:]...); err != nil && err != bitcask.ErrKeyNotFound {
+	if err := cli.db.LPushX(args[0], args[1:]...); err != nil && err != bitcaskdb.ErrKeyNotFound {
 		return nil, err
 	}
 	return cli.db.LLen(args[0]), nil
@@ -309,7 +309,7 @@ func rPushX(cli *ClientHandle, args [][]byte) (interface{}, error) {
 	if len(args) < 2 {
 		return nil, newWrongNumOfArgsError("lpush")
 	}
-	if err := cli.db.LPushX(args[0], args[1:]...); err != nil && err != bitcask.ErrKeyNotFound {
+	if err := cli.db.LPushX(args[0], args[1:]...); err != nil && err != bitcaskdb.ErrKeyNotFound {
 		return nil, err
 	}
 	return cli.db.LLen(args[0]), nil

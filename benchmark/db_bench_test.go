@@ -5,13 +5,13 @@ import (
 	"math/rand"
 	"testing"
 
-	"github.com/NNihilism/bitcaskdb/bitcask"
+	"github.com/NNihilism/bitcaskdb"
 	"github.com/NNihilism/bitcaskdb/client"
 	"github.com/NNihilism/bitcaskdb/options"
 	"github.com/stretchr/testify/assert"
 )
 
-var db *bitcask.BitcaskDB
+var db *bitcaskdb.BitcaskDB
 
 func init() {
 	// path := filepath.Join("/data")
@@ -19,7 +19,7 @@ func init() {
 	// path := "E:" + string(os.PathSeparator) + "tmp" + string(os.PathSeparator) + "test"
 	opts := options.DefaultOptions(path)
 	var err error
-	db, err = bitcask.Open(opts)
+	db, err = bitcaskdb.Open(opts)
 	if err != nil {
 		fmt.Printf("open bitcaskDB err: %v", err)
 		return

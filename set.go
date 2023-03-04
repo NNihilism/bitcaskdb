@@ -1,4 +1,4 @@
-package bitcask
+package bitcaskdb
 
 import (
 	"github.com/NNihilism/bitcaskdb/util"

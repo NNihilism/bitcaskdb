@@ -5,7 +5,7 @@ import (
 	"encoding/binary"
 	"io"
 
-	"github.com/NNihilism/bitcaskdb/bitcask"
+	"github.com/NNihilism/bitcaskdb"
 	"github.com/NNihilism/bitcaskdb/log"
 	"github.com/NNihilism/bitcaskdb/util"
 )
@@ -22,11 +22,11 @@ const (
 
 type ClientHandle struct {
 	conn io.ReadWriteCloser
-	db   *bitcask.BitcaskDB
-	dbs  []*bitcask.BitcaskDB
+	db   *bitcaskdb.BitcaskDB
+	dbs  []*bitcaskdb.BitcaskDB
 }
 
-func NewClientHandle(conn io.ReadWriteCloser, db *bitcask.BitcaskDB, dbs []*bitcask.BitcaskDB) *ClientHandle {
+func NewClientHandle(conn io.ReadWriteCloser, db *bitcaskdb.BitcaskDB, dbs []*bitcaskdb.BitcaskDB) *ClientHandle {
 	return &ClientHandle{
 		conn: conn,
 		dbs:  dbs,
@@ -76,7 +76,7 @@ func (cli *ClientHandle) Handle() {
 		}
 
 		if res, err := cmdFunc(cli, args); err != nil {
-			if err == bitcask.ErrKeyNotFound {
+			if err == bitcaskdb.ErrKeyNotFound {
 				cli.WriteResult([]byte("(nil)"))
 			} else {
 				cli.WriteResult([]byte("(error) " + err.Error()))
